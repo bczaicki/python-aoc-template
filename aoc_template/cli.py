@@ -2,6 +2,7 @@
 import argparse
 from pathlib import Path
 import sys
+from .description_fetcher import save_description, fetch_and_display
 
 
 SOLUTION_TEMPLATE = '''"""
@@ -136,6 +137,32 @@ def create_day(day: int, year: int = 2025, force: bool = False) -> None:
     print(f"5. Run solution: uv run python {solution_file}")
 
 
+def fetch_description_cmd(day: int, year: int = 2025, output: Path | None = None, display_only: bool = False) -> None:
+    """
+    Fetch and save puzzle description.
+
+    Args:
+        day: Day number (1-25)
+        year: Year of Advent of Code
+        output: Custom output path for description.txt
+        display_only: Only display, don't save to file
+    """
+    if not 1 <= day <= 25:
+        print(f"Error: Day must be between 1 and 25, got {day}", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        if display_only:
+            description = fetch_and_display(year, day)
+            print(description)
+        else:
+            saved_path = save_description(year, day, output)
+            print(f"Description saved to: {saved_path}")
+    except Exception as e:
+        print(f"Error fetching description: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -151,10 +178,19 @@ def main():
     create_parser.add_argument("--year", type=int, default=2025, help="Year (default: 2025)")
     create_parser.add_argument("--force", action="store_true", help="Overwrite existing files")
 
+    # Fetch description command
+    desc_parser = subparsers.add_parser("fetch-desc", help="Fetch puzzle description")
+    desc_parser.add_argument("day", type=int, help="Day number (1-25)")
+    desc_parser.add_argument("--year", type=int, default=2025, help="Year (default: 2025)")
+    desc_parser.add_argument("--output", type=Path, help="Custom output path")
+    desc_parser.add_argument("--display", action="store_true", help="Display only, don't save")
+
     args = parser.parse_args()
 
     if args.command == "create":
         create_day(args.day, args.year, args.force)
+    elif args.command == "fetch-desc":
+        fetch_description_cmd(args.day, args.year, args.output, args.display)
     else:
         parser.print_help()
 
