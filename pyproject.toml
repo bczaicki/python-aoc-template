@@ -21,7 +21,7 @@ build-backend = "hatchling.build"
 packages = ["aoc_template"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["day*/tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]

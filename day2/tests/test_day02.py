@@ -1,6 +1,11 @@
 """Tests for Day 2 solution."""
 import pytest
-from solutions.day02 import Solution
+import sys
+from pathlib import Path
+
+# Add parent directory to path to import solution
+sys.path.insert(0, str(Path(__file__).parent.parent / "solution"))
+from day02 import Solution
 
 
 @pytest.fixture

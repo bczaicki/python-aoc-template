@@ -64,12 +64,12 @@ uv run aoc create 5 --year 2024
 ```
 
 This creates:
-- `solutions/dayXX.py` - Solution template
-- `tests/test_dayXX.py` - Test template
+- `dayX/solution/dayXX.py` - Solution template
+- `dayX/tests/test_dayXX.py` - Test template
 
 ### 4. Implement your solution
 
-Edit `solutions/dayXX.py`:
+Edit `dayX/solution/dayXX.py`:
 
 ```python
 from aoc_template import BaseSolution, parse_lines
@@ -90,7 +90,7 @@ class Solution(BaseSolution):
 
 ### 5. Write tests
 
-Edit `tests/test_dayXX.py` with the example input from the puzzle:
+Edit `dayX/tests/test_dayXX.py` with the example input from the puzzle:
 
 ```python
 @pytest.fixture
@@ -108,7 +108,7 @@ def test_part1(solution):
 
 ```bash
 # Run tests for a specific day
-uv run pytest tests/test_day01.py
+uv run pytest day1/tests/test_day01.py
 
 # Run all tests
 uv run pytest
@@ -121,7 +121,7 @@ uv run pytest -v
 
 ```bash
 # Run directly (will fetch/cache input automatically)
-uv run python solutions/day01.py
+uv run python day1/solution/day01.py
 ```
 
 ## Available Utilities
@@ -201,13 +201,16 @@ solution = Solution.from_file("inputs/2025_day01.txt")
 │   ├── cli.py             # CLI tool
 │   ├── input_fetcher.py   # Input fetching/caching
 │   └── utils.py           # Parsing utilities
-├── solutions/             # Your solutions
-│   ├── day01.py
-│   ├── day02.py
-│   └── ...
-├── tests/                 # Tests
-│   ├── test_day01.py
-│   └── ...
+├── day1/                  # Day 1 directory
+│   ├── solution/          # Solution files
+│   │   └── day01.py
+│   └── tests/             # Test files
+│       └── test_day01.py
+├── day2/                  # Day 2 directory
+│   ├── solution/
+│   │   └── day02.py
+│   └── tests/
+│       └── test_day02.py
 ├── inputs/                # Cached inputs (gitignored)
 ├── pyproject.toml         # Project config
 ├── .env                   # Session cookie (gitignored)

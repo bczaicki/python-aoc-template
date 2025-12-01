@@ -41,7 +41,12 @@ if __name__ == "__main__":
 
 TEST_TEMPLATE = '''"""Tests for Day {day} solution."""
 import pytest
-from solutions.day{day:02d} import Solution
+import sys
+from pathlib import Path
+
+# Add parent directory to path to import solution
+sys.path.insert(0, str(Path(__file__).parent.parent / "solution"))
+from day{day:02d} import Solution
 
 
 @pytest.fixture
@@ -90,24 +95,27 @@ def create_day(day: int, year: int = 2025, force: bool = False) -> None:
         print(f"Error: Day must be between 1 and 25, got {day}", file=sys.stderr)
         sys.exit(1)
 
-    # Create solutions directory if it doesn't exist
-    solutions_dir = Path("solutions")
-    tests_dir = Path("tests")
-    solutions_dir.mkdir(exist_ok=True)
-    tests_dir.mkdir(exist_ok=True)
+    # Create day directory structure
+    day_dir = Path(f"day{day}")
+    solution_dir = day_dir / "solution"
+    tests_dir = day_dir / "tests"
+
+    # Check if day directory already exists
+    if day_dir.exists() and not force:
+        print(f"Error: {day_dir} already exists. Use --force to overwrite.", file=sys.stderr)
+        sys.exit(1)
+
+    # Create directories
+    solution_dir.mkdir(parents=True, exist_ok=True)
+    tests_dir.mkdir(parents=True, exist_ok=True)
 
     # File paths
-    solution_file = solutions_dir / f"day{day:02d}.py"
+    solution_file = solution_dir / f"day{day:02d}.py"
     test_file = tests_dir / f"test_day{day:02d}.py"
+    solution_init = solution_dir / "__init__.py"
 
-    # Check if files already exist
-    if solution_file.exists() and not force:
-        print(f"Error: {solution_file} already exists. Use --force to overwrite.", file=sys.stderr)
-        sys.exit(1)
-
-    if test_file.exists() and not force:
-        print(f"Error: {test_file} already exists. Use --force to overwrite.", file=sys.stderr)
-        sys.exit(1)
+    # Create __init__.py file for solution package
+    solution_init.write_text("# Solution package\n")
 
     # Create solution file
     solution_content = SOLUTION_TEMPLATE.format(year=year, day=day)
