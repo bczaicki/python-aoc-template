@@ -1,6 +1,7 @@
 """
 Advent of Code 2025 - Day 2
 """
+from pathlib import Path
 from aoc_template import BaseSolution, parse_lines
 
 
@@ -9,7 +10,7 @@ class Solution(BaseSolution):
 
     def parse_input(self, input_text: str):
         """Parse the input."""
-        return parse_lines(input_text)
+        return parse_lines(input_text)[0].split(',')
 
     def part1(self):
         """Solve part 1."""
@@ -23,11 +24,7 @@ class Solution(BaseSolution):
 
 
 if __name__ == "__main__":
-    from aoc_template import load_input
-
-    # Load input (fetches from web or uses cached version)
-    input_text = load_input(2025, 2)
-
-    solution = Solution(input_text)
+    solution = Solution.from_file(Path(__file__).parent / "input.txt")
+    solution.display_description()
     print(f"Part 1: {solution.part1()}")
     print(f"Part 2: {solution.part2()}")

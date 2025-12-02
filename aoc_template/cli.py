@@ -8,6 +8,7 @@ from .description_fetcher import save_description, fetch_and_display
 SOLUTION_TEMPLATE = '''"""
 Advent of Code {year} - Day {day}
 """
+from pathlib import Path
 from aoc_template import BaseSolution, parse_lines
 
 
@@ -30,12 +31,8 @@ class Solution(BaseSolution):
 
 
 if __name__ == "__main__":
-    from aoc_template import load_input
-
-    # Load input (fetches from web or uses cached version)
-    input_text = load_input({year}, {day})
-
-    solution = Solution(input_text)
+    solution = Solution.from_file(Path(__file__).parent / "input.txt")
+    solution.display_description()
     print(f"Part 1: {{solution.part1()}}")
     print(f"Part 2: {{solution.part2()}}")
 '''
