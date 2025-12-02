@@ -44,14 +44,6 @@ class Solution(BaseSolution):
 
 
 if __name__ == "__main__":
-
     solution = Solution.from_file(Path(__file__).parent / 'input.txt')
     print(f"Part 1: {solution.part1()}")
     print(f"Part 2: {solution.part2()}")
-
-    # To use with actual AoC input:
-    # from aoc_template import load_input
-    # input_text = load_input(2025, 1)
-    # solution = Solution(input_text)
-    # print(f"Part 1: {solution.part1()}")
-    # print(f"Part 2: {solution.part2()}")
