@@ -28,13 +28,13 @@ def test_parse_input(solution):
 
 def test_part1(solution):
     """Test part 1 solution."""
-    # TODO: Add part 1 tests
-    expected = None  # Replace with expected value
-    # assert solution.part1() == expected
+    expected = 1227775554  
+    actual = solution.part1()
+    assert actual == expected
 
 
 def test_part2(solution):
     """Test part 2 solution."""
-    # TODO: Add part 2 tests
-    expected = None  # Replace with expected value
-    # assert solution.part2() == expected
+    expected = 4174379265  
+    actual = solution.part2()
+    assert actual == expected

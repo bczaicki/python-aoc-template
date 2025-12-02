@@ -14,13 +14,38 @@ class Solution(BaseSolution):
 
     def part1(self):
         """Solve part 1."""
-        # TODO: Implement part 1
-        pass
+        total = 0
+        for num_range in self.data:
+            values = num_range.split('-')
+            beg, end = int(values[0]), int(values[1])
+            for i in range(beg, end + 1):
+                num_str = str(i)
+                str_len = len(num_str)
+                midway = str_len // 2
+                if str_len % 2 == 0 and num_str[0:midway] == num_str[midway:]:
+                    total += i
+        return total
+                
 
     def part2(self):
         """Solve part 2."""
-        # TODO: Implement part 2
-        pass
+        total = 0
+        added_nums = []
+        for num_range in self.data:
+            values = num_range.split('-')
+            beg, end = int(values[0]), int(values[1])
+            for i in range(beg, end + 1):
+                num_str = str(i)
+                str_len = len(num_str)
+                midway = str_len // 2
+                for j in range(1, midway + 1):
+                   sequences = [num_str[k:k+j] for k in range(0, str_len, j)] 
+                   if(len(set(sequences)) == 1 and i not in added_nums):
+                       total += i
+                       added_nums.append(i)
+        return total
+                
+
 
 
 if __name__ == "__main__":
