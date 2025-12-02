@@ -45,5 +45,6 @@ class Solution(BaseSolution):
 
 if __name__ == "__main__":
     solution = Solution.from_file(Path(__file__).parent / 'input.txt')
+    solution.display_description()
     print(f"Part 1: {solution.part1()}")
     print(f"Part 2: {solution.part2()}")
