@@ -12,38 +12,75 @@ class Solution(BaseSolution):
         """Parse the input."""
         return parse_lines(input_text)[0].split(',')
 
+    def _generate_repeating_halves(self, beg, end):
+        """Generate even-length numbers where first half equals second half."""
+        results = []
+        min_digits = len(str(beg))
+        max_digits = len(str(end))
+
+        for num_digits in range(min_digits, max_digits + 1):
+            # Only even-length numbers
+            if num_digits % 2 != 0:
+                continue
+
+            half_len = num_digits // 2
+            # Generate all possible halves
+            start = 10 ** (half_len - 1) if half_len > 1 else 1
+            stop = 10 ** half_len
+
+            for half in range(start, stop):
+                # Repeat the half (not reverse it)
+                repeated = int(str(half) * 2)
+                if beg <= repeated <= end:
+                    results.append(repeated)
+
+        return results
+
+    def _generate_repeating_patterns(self, beg, end):
+        """Generate numbers with repeating patterns in range [beg, end]."""
+        results = set()
+        min_digits = len(str(beg))
+        max_digits = len(str(end))
+
+        for num_digits in range(min_digits, max_digits + 1):
+            # Try each pattern length that divides num_digits
+            for pattern_len in range(1, num_digits):
+                if num_digits % pattern_len != 0:
+                    continue
+
+                # Generate all patterns of this length
+                start = 10 ** (pattern_len - 1) if pattern_len > 1 else 1
+                stop = 10 ** pattern_len
+
+                for pattern in range(start, stop):
+                    # Repeat pattern to create number
+                    pattern_str = str(pattern)
+                    repeated = int(pattern_str * (num_digits // pattern_len))
+                    if beg <= repeated <= end:
+                        results.add(repeated)
+
+        return results
+
     def part1(self):
         """Solve part 1."""
         total = 0
         for num_range in self.data:
             values = num_range.split('-')
             beg, end = int(values[0]), int(values[1])
-            for i in range(beg, end + 1):
-                num_str = str(i)
-                str_len = len(num_str)
-                midway = str_len // 2
-                if str_len % 2 == 0 and num_str[0:midway] == num_str[midway:]:
-                    total += i
+            repeating_halves = self._generate_repeating_halves(beg, end)
+            total += sum(repeating_halves)
         return total
-                
+
 
     def part2(self):
         """Solve part 2."""
-        total = 0
-        added_nums = []
+        all_nums = set()
         for num_range in self.data:
             values = num_range.split('-')
             beg, end = int(values[0]), int(values[1])
-            for i in range(beg, end + 1):
-                num_str = str(i)
-                str_len = len(num_str)
-                midway = str_len // 2
-                for j in range(1, midway + 1):
-                   sequences = [num_str[k:k+j] for k in range(0, str_len, j)] 
-                   if(len(set(sequences)) == 1 and i not in added_nums):
-                       total += i
-                       added_nums.append(i)
-        return total
+            repeating = self._generate_repeating_patterns(beg, end)
+            all_nums.update(repeating)
+        return sum(all_nums)
                 
 
 
