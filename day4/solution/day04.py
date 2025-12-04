@@ -2,7 +2,7 @@
 Advent of Code 2025 - Day 4
 """
 from pathlib import Path
-from aoc_template import BaseSolution, parse_lines
+from aoc_template import BaseSolution, parse_lines, neighbors_8
 
 
 class Solution(BaseSolution):
@@ -13,9 +13,8 @@ class Solution(BaseSolution):
         return parse_lines(input_text)
 
     def part1(self):
-        """Solve part 1."""
-        # TODO: Implement part 1
-        pass
+        print(neighbors_8(0, 0))
+
 
     def part2(self):
         """Solve part 2."""
