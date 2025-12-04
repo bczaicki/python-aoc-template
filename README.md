@@ -21,7 +21,9 @@ This template automates common Advent of Code boilerplate:
 - **Base solution class** with standardized structure
 - **Parsing utilities** for common input formats
 - **Pytest integration** with test templates
+- **Hot reloading tests** with pytest-watcher for rapid development
 - **CLI tool** for generating new day solutions
+- **Simple commands** for running solutions and tests
 - **Modern Python tooling** with `uv` for fast dependency management
 
 ## Quick Start
@@ -107,7 +109,10 @@ def test_part1(solution):
 ### 6. Run tests
 
 ```bash
-# Run tests for a specific day
+# Run tests with hot reloading (automatically re-runs on file changes)
+uv run test 1
+
+# Or run manually without hot reloading
 uv run pytest day1/tests/test_day01.py
 
 # Run all tests
@@ -120,7 +125,10 @@ uv run pytest -v
 ### 7. Run your solution
 
 ```bash
-# Run directly (will fetch/cache input automatically)
+# Run using the solution command (recommended)
+uv run solution 1
+
+# Or run directly (will fetch/cache input automatically)
 uv run python day1/solution/day01.py
 ```
 
@@ -231,10 +239,18 @@ solution = Solution.from_file("inputs/2025_day01.txt")
 # Create new day
 uv run aoc create <day> [--year YEAR] [--force]
 
+# Run solution
+uv run solution <day>
+
+# Run tests with hot reloading
+uv run test <day>
+
 # Examples
 uv run aoc create 1              # Create day 1 for 2025
 uv run aoc create 5 --year 2024  # Create day 5 for 2024
 uv run aoc create 1 --force      # Overwrite existing files
+uv run solution 3                # Run day 3 solution
+uv run test 3                    # Run day 3 tests with hot reloading
 ```
 
 Happy coding!
