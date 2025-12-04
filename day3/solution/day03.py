@@ -35,13 +35,33 @@ class Solution(BaseSolution):
 
 
 
-
-
-
-
-
     def part2(self):
-        # Pull the lowest 3 numbers out of the sequence
+        total = 0
+        TARGET_LEN = 12
+
+        for row in self.data:
+            digits = row.strip()
+            n = len(digits)
+            k = n - TARGET_LEN  # number of digits to remove
+
+            stack = []
+            for ch in digits:
+                # While we can still remove digits and the last digit is smaller than current,
+                # pop it to make the number larger.
+                while k > 0 and stack and stack[-1] < ch:
+                    stack.pop()
+                    k -= 1
+                stack.append(ch)
+
+            # If we still have digits to remove, remove them from the end
+            if k > 0:
+                stack = stack[:-k]
+
+            # Now stack should have exactly TARGET_LEN digits
+            best_number = int("".join(stack))
+            total += best_number
+
+        return total
 
 
 if __name__ == "__main__":
