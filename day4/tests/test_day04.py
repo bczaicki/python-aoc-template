@@ -10,8 +10,18 @@ from day04 import Solution
 
 @pytest.fixture
 def example_input():
-    """Example input for testing."""
-    return """TODO: Add example input"""
+    return """
+    ..@@.@@@@.
+@@@.@.@.@@
+@@@@@.@.@@
+@.@@@@..@.
+@@.@@@@.@@
+.@@@@@@@.@
+.@.@.@.@@@
+@.@@@.@@@@
+.@@@@@@@@.
+@.@.@@@.@.
+    """
 
 
 @pytest.fixture
@@ -22,8 +32,9 @@ def solution(example_input):
 
 def test_parse_input(solution):
     """Test input parsing."""
-    # TODO: Add parsing tests
-    pass
+    assert solution.data
+    assert solution.data[0] == '..@@.@@@@.'
+    assert solution.data[-1] == '@.@.@@@.@.'
 
 
 def test_part1(solution):
