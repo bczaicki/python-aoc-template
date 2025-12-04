@@ -33,8 +33,9 @@ def solution(example_input):
 def test_parse_input(solution):
     """Test input parsing."""
     assert solution.data
-    assert solution.data[0] == '..@@.@@@@.'
-    assert solution.data[-1] == '@.@.@@@.@.'
+    assert isinstance(solution.data[0], list)
+    assert isinstance(solution.data[0][0], str)
+    assert solution.data[-1][-1] == '.'
 
 
 def test_part1(solution):

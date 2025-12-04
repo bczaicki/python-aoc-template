@@ -2,7 +2,7 @@
 Advent of Code 2025 - Day 4
 """
 from pathlib import Path
-from aoc_template import BaseSolution, parse_lines, neighbors_8
+from aoc_template import BaseSolution, parse_lines, neighbors_8, parse_grid
 
 
 class Solution(BaseSolution):
@@ -10,7 +10,7 @@ class Solution(BaseSolution):
 
     def parse_input(self, input_text: str):
         """Parse the input."""
-        return parse_lines(input_text)
+        return parse_grid(input_text)
 
     def part1(self):
         print(neighbors_8(0, 0))
