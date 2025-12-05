@@ -12,10 +12,10 @@ class Solution(BaseSolution):
         return parse_grid(input_text)
 
     def valid_neighbor(self, neighbor, row_len, col_len):
-        return (neighbor[0] >= 0 and 
-                neighbor[0] > row_len and
+        return (neighbor[0] >= 0 and
+                neighbor[0] < row_len and
                 neighbor[1] >= 0 and
-                neighbor[1] > col_len
+                neighbor[1] < col_len
         )
 
     def filter_invalid_neighbors(self, neighborsList, row_len, col_len):
@@ -38,7 +38,7 @@ class Solution(BaseSolution):
                         row_len,
                         col_len
                 )
-                rolls = list(filter(lambda neighbor: ROLL_VALUE in neighbor, neighbors))
+                rolls = list(filter(lambda neighbor: grid[neighbor[0]][neighbor[1]] == ROLL_VALUE, neighbors))
                 rolls_len = len(rolls)
                 if rolls_len < 4:
                     total += 1
