@@ -1,6 +1,6 @@
 from .base_solution import BaseSolution
 from .input_fetcher import fetch_input, load_input
-from .utils import parse_lines, parse_ints, parse_grid
+from .utils import parse_lines, parse_ints, parse_grid, neighbors_8
 from .description_fetcher import (
     fetch_description_html,
     parse_description,
